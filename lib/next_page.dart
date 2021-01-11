@@ -1,17 +1,25 @@
+import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 
 class NextPage extends StatefulWidget {
   final String title;
 
+  // コンストラクタ
   NextPage(this.title);
 
   @override
-  _NextPageState createState() => _NextPageState();
+  NextPageState createState() => NextPageState();
 }
 
-class _NextPageState extends State<NextPage> {
+class NextPageState extends State<NextPage> {
   @override
+  //状態が変わるとbuildで更新される
   Widget build(BuildContext context) {
+    final words = <WordPair>[];
+    print(words);
+    final font = const TextStyle(
+        fontSize: 30.0, fontFamily: 'OpenSans', color: Colors.green);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -22,7 +30,7 @@ class _NextPageState extends State<NextPage> {
           Row(children: [
             Container(
               width: 50,
-              child: Text('ID'),
+              child: Text('ID', style: font),
             ),
             Container(
               width: 20,
@@ -34,7 +42,10 @@ class _NextPageState extends State<NextPage> {
           Row(children: [
             Container(
               width: 50,
-              child: Text('PW'),
+              child: Text(
+                'PW',
+                style: font,
+              ),
             ),
             Container(
               width: 20,
