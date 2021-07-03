@@ -1,4 +1,4 @@
-import 'package:english_words/english_words.dart';
+// import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 
 class NextPage extends StatefulWidget {
@@ -15,7 +15,7 @@ class NextPageState extends State<NextPage> {
   @override
   //状態が変わるとbuildで更新される
   Widget build(BuildContext context) {
-    final words = <WordPair>[];
+    final words = <String>[];
     print(words);
     final font = const TextStyle(
         fontSize: 30.0, fontFamily: 'OpenSans', color: Colors.green);
