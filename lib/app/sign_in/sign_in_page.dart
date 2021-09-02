@@ -25,7 +25,7 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Time Tracker'),
+          title: Text('ふらったー'),
           elevation: 2.0,
         ),
         backgroundColor: Colors.grey[200],
@@ -40,14 +40,14 @@ class SignInPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Text(
-            'Sign in',
+            'ログイン',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.w600),
           ),
           SizedBox(height: 48.0),
           SocialSignInButton(
             assetName: 'images/google-logo.png',
-            text: 'Sign in with Google',
+            text: 'Google でログイン',
             textColor: Colors.black87,
             color: Colors.white,
             onPressed: () {},
@@ -55,14 +55,14 @@ class SignInPage extends StatelessWidget {
           SizedBox(height: 8.0),
           SocialSignInButton(
             assetName: 'images/facebook-logo.png',
-            text: 'Sign in with Facebook',
+            text: 'Facebook でログイン',
             textColor: Colors.white,
             color: Color(0xFF334D92),
             onPressed: () {},
           ),
           SizedBox(height: 8.0),
           SignInButton(
-            text: 'Sign in with email',
+            text: 'Email でログイン',
             textColor: Colors.white,
             color: Color(0xFF00796B),
             onPressed: () {},
@@ -75,7 +75,7 @@ class SignInPage extends StatelessWidget {
           ),
           SizedBox(height: 8.0),
           SignInButton(
-            text: 'Go anonymous',
+            text: 'ログイン',
             textColor: Colors.black,
             color: Color(0xFFDCE775),
             onPressed: _signInAnonymously,
