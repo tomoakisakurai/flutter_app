@@ -1,5 +1,7 @@
 // import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_app/app/sign_in/email_sign_in_page.dart';
 import 'package:flutter_app/app/sign_in/sign_in_button.dart';
 import 'package:flutter_app/app/sign_in/social_sign_in_button.dart';
 import 'package:flutter_app/services/auth.dart';
@@ -28,6 +30,11 @@ class SignInPage extends StatelessWidget {
     }
   }
 
+  void _signInWithEmail(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(
+        fullscreenDialog: true, builder: (context) => EmailSignInPage()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,10 +43,10 @@ class SignInPage extends StatelessWidget {
           elevation: 2.0,
         ),
         backgroundColor: Colors.grey[200],
-        body: _buildContent());
+        body: _buildContent(context));
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(16.0),
       child: Column(
@@ -72,7 +79,7 @@ class SignInPage extends StatelessWidget {
             text: 'Email でログイン',
             textColor: Colors.white,
             color: Color(0xFF00796B),
-            onPressed: () {},
+            onPressed: () => _signInWithEmail(context),
           ),
           SizedBox(height: 8.0),
           Text(
