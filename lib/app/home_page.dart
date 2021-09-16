@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/common_widget/show_dialog.dart';
 import 'package:flutter_app/services/auth.dart';
 
 class HomePage extends StatelessWidget {
@@ -16,6 +17,17 @@ class HomePage extends StatelessWidget {
     }
   }
 
+  Future<void> _confirmSignOut(BuildContext context) async {
+    final signOut = await showAlertDialog(context,
+        title: 'ログアウト',
+        content: 'ログアウトしますか？',
+        cancelActionText: 'キャンセル',
+        defaultActionText: 'ログアウト');
+    if (signOut == true) {
+      _signOut();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +35,7 @@ class HomePage extends StatelessWidget {
         title: Text('Home Page'),
         actions: [
           TextButton(
-              onPressed: _signOut,
+              onPressed: () => _confirmSignOut(context),
               child: Text('ログアウト',
                   style: TextStyle(fontSize: 18.0, color: Colors.white)))
         ],
