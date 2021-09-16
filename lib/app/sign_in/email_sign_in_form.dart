@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/app/sign_in/validators.dart';
 import 'package:flutter_app/common_widget/form_submit_button.dart';
@@ -41,7 +43,19 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
       }
       Navigator.of(context).pop();
     } catch (e) {
-      print(e.toString());
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('サインインに失敗しました。'),
+              content: Text(e.toString()),
+              actions: [
+                TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text('確認'))
+              ],
+            );
+          });
     } finally {
       setState(() {
         _isLoading = false;
