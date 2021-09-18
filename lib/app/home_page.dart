@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common_widget/show_dialog.dart';
 import 'package:flutter_app/services/auth.dart';
+// import 'package:flutter_app/services/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   // final VoidCallback onSignOut;
-  final AuthBase auth;
 
-  const HomePage({Key? key, required this.auth}) : super(key: key);
-
-  Future<void> _signOut() async {
+  Future<void> _signOut(BuildContext context) async {
     try {
+      // final auth = AuthProvider.of(context);
+      final auth = Provider.of<AuthBase>(context, listen: false);
       await auth.signOut();
-      // onSignOut();
     } catch (e) {
       print(e.toString());
     }
@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
         cancelActionText: 'キャンセル',
         defaultActionText: 'ログアウト');
     if (signOut == true) {
-      _signOut();
+      _signOut(context);
     }
   }
 

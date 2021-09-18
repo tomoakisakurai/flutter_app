@@ -5,15 +5,14 @@ import 'package:flutter_app/app/sign_in/email_sign_in_page.dart';
 import 'package:flutter_app/app/sign_in/sign_in_button.dart';
 import 'package:flutter_app/app/sign_in/social_sign_in_button.dart';
 import 'package:flutter_app/services/auth.dart';
+// import 'package:flutter_app/services/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class SignInPage extends StatelessWidget {
-  // final void Function(User?) onSignIn;
-  final AuthBase auth;
-
-  const SignInPage({Key? key, required this.auth}) : super(key: key);
-
-  Future<void> _signInAnonymously() async {
+  Future<void> _signInAnonymously(BuildContext context) async {
     try {
+      // final auth = AuthProvider.of(context);
+      final auth = Provider.of<AuthBase>(context, listen: false);
       await auth.signInAnonymously();
       // print('${user?.uid}');
       // onSignIn(user);
@@ -22,8 +21,10 @@ class SignInPage extends StatelessWidget {
     }
   }
 
-  Future<void> _signInWithGoogle() async {
+  Future<void> _signInWithGoogle(BuildContext context) async {
     try {
+      // final auth = AuthProvider.of(context);
+      final auth = Provider.of<AuthBase>(context, listen: false);
       await auth.signInWithGoogle();
     } catch (e) {
       print(e.toString());
@@ -32,10 +33,7 @@ class SignInPage extends StatelessWidget {
 
   void _signInWithEmail(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(
-        fullscreenDialog: true,
-        builder: (context) => EmailSignInPage(
-              auth: auth,
-            )));
+        fullscreenDialog: true, builder: (context) => EmailSignInPage()));
   }
 
   @override
@@ -67,7 +65,7 @@ class SignInPage extends StatelessWidget {
             text: 'Google でログイン',
             textColor: Colors.black87,
             color: Colors.white,
-            onPressed: _signInWithGoogle,
+            onPressed: () => _signInWithGoogle(context),
           ),
           SizedBox(height: 8.0),
           SocialSignInButton(
@@ -95,7 +93,7 @@ class SignInPage extends StatelessWidget {
             text: 'ログイン',
             textColor: Colors.black,
             color: Color(0xFFDCE775),
-            onPressed: _signInAnonymously,
+            onPressed: () => _signInAnonymously(context),
           ),
         ],
       ),
