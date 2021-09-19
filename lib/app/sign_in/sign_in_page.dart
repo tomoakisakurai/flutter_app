@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/app/sign_in/email_sign_in_page.dart';
+import 'package:flutter_app/app/sign_in/sign_in_bloc.dart';
 import 'package:flutter_app/app/sign_in/sign_in_button.dart';
 import 'package:flutter_app/app/sign_in/social_sign_in_button.dart';
 import 'package:flutter_app/services/auth.dart';
@@ -9,8 +10,18 @@ import 'package:flutter_app/services/auth.dart';
 import 'package:provider/provider.dart';
 
 class SignInPage extends StatelessWidget {
+  static Widget create(BuildContext context) {
+    return Provider<SignInBloc>(
+      create: (_) => SignInBloc(),
+      child: SignInPage(),
+    );
+  }
+
   Future<void> _signInAnonymously(BuildContext context) async {
+    final bloc = Provider.of<SignInBloc>(context, listen: false);
     try {
+      bloc.setIsLoading(true);
+
       // final auth = AuthProvider.of(context);
       final auth = Provider.of<AuthBase>(context, listen: false);
       await auth.signInAnonymously();
@@ -18,16 +29,21 @@ class SignInPage extends StatelessWidget {
       // onSignIn(user);
     } catch (e) {
       print(e.toString());
+      bloc.setIsLoading(false);
     }
   }
 
   Future<void> _signInWithGoogle(BuildContext context) async {
+    final bloc = Provider.of<SignInBloc>(context, listen: false);
     try {
+      bloc.setIsLoading(true);
+
       // final auth = AuthProvider.of(context);
       final auth = Provider.of<AuthBase>(context, listen: false);
       await auth.signInWithGoogle();
     } catch (e) {
       print(e.toString());
+      bloc.setIsLoading(false);
     }
   }
 
@@ -38,16 +54,23 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = Provider.of<SignInBloc>(context, listen: false);
+
     return Scaffold(
         appBar: AppBar(
           title: Text('ふらったー'),
           elevation: 2.0,
         ),
         backgroundColor: Colors.grey[200],
-        body: _buildContent(context));
+        body: StreamBuilder<bool>(
+            stream: bloc.isLoadingStream,
+            initialData: false,
+            builder: (context, snapshot) {
+              return _buildContent(context, snapshot.data);
+            }));
   }
 
-  Widget _buildContent(BuildContext context) {
+  Widget _buildContent(BuildContext context, bool? isLoading) {
     return Padding(
       padding: EdgeInsets.all(16.0),
       child: Column(
