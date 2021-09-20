@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/common_widget/bottom_bar.dart';
 import 'package:flutter_app/common_widget/show_dialog.dart';
 import 'package:flutter_app/services/auth.dart';
 
@@ -32,7 +33,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: Text('ホーム'),
         actions: [
           TextButton(
               onPressed: () => _confirmSignOut(context),
@@ -40,6 +41,7 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(fontSize: 18.0, color: Colors.white)))
         ],
       ),
+      body: BottomBarScreen(),
     );
   }
 }
