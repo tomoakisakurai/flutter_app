@@ -1,5 +1,6 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/app/sign_in/email_sign_in_page.dart';
 import 'package:flutter_app/app/sign_in/sign_in_button.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_app/services/auth.dart';
 class SignInPage extends StatelessWidget {
   // final void Function(User?) onSignIn;
   final AuthBase auth;
+  final auth = FirebaseAuth.instance;
 
   const SignInPage({Key? key, required this.auth}) : super(key: key);
 
@@ -95,7 +97,15 @@ class SignInPage extends StatelessWidget {
             text: 'ログイン',
             textColor: Colors.black,
             color: Color(0xFFDCE775),
-            onPressed: _signInAnonymously,
+            onPressed: () async {
+              final auth = FirebaseAuth.instance;
+              await auth.verifyPhoneNumber(
+                  phoneNumber: '07090008694',
+                  verificationCompleted: null,
+                  verificationFailed: verificationFailed,
+                  codeSent: codeSent,
+                  codeAutoRetrievalTimeout: '5');
+            },
           ),
         ],
       ),
